@@ -38,10 +38,31 @@ numberCheck.addEventListener("click", function(){
 luckCheck.addEventListener("click", function(){
     attempts++;
     const textBox = document.getElementById("numberInput")
-    const generateRandom = Math.round(Math.random()*100)
-    textBox.value = generateRandom;
+    const generateChance = Math.round(Math.random()*26)
+    let generateRandom = Math.round(Math.random()*100) // fixed by making it into a "let" instaed of const
+
+    if (generateChance === 13) { // if you roll 13, generateRandom value will be equal to current randomNumber
+        generateRandom = randomNumber
+    }
+
+    textBox.value = generateRandom; // for every occurence of click textbox value will change
+
     if (generateRandom === randomNumber) {
         alert(`You won the number was ${randomNumber}! You took ${attempts} attempt/s`)
+        while (check) {
+            let reload = prompt("Do you want to play again? y/n")
+            if (reload === "y") {
+                location.reload();
+                check = false;
+            }
+            else if (reload === "n") {
+                window.close();
+                check = false;
+            }
+            else {
+                alert("please enter a valid command");
+            }
+        }
         
     }
     else if (generateRandom < randomNumber) {
